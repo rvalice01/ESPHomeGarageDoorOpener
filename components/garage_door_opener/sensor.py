@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor
-from esphome.const import UNIT_EMPTY, ICON_GATE, STATE_CLASS_MEASUREMENT
+from esphome.const import UNIT_EMPTY
 
 garage_ns = cg.esphome_ns.namespace("garage_door_opener")
 GarageDoorOpener = garage_ns.class_("GarageDoorOpener", cg.Component, cg.CustomAPIDevice)
@@ -14,9 +14,8 @@ CONFIG_SCHEMA = cv.Schema({
 
     cv.Optional(CONF_DOOR_STATE): sensor.sensor_schema(
         unit_of_measurement=UNIT_EMPTY,
-        icon=ICON_GATE,
         accuracy_decimals=0,
-        state_class=STATE_CLASS_MEASUREMENT,
+        # icon and state_class are optional; omit for compatibility
     ).extend({
         cv.GenerateID("door_state_sensor_id"): cv.declare_id(DoorStateSensor),
         cv.Optional("update_interval", default="1s"): cv.update_interval,
